@@ -1,0 +1,116 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button
+        [defaultHref]="'/o/' + restaurantSlug + '/' + tableId + '/tabs/cart'"
+        text=""
+      ></ion-back-button>
+    </ion-buttons>
+    <ion-title>Confirm order</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="confirm-content">
+  <section class="hero-meta">
+    <p class="eyebrow">Table {{ tableId }}</p>
+    <h1>Almost there</h1>
+    <p class="lede">
+      We’ll send this straight to the kitchen. Estimated ready in about
+      <strong>{{ cart.estimatedPrepMinutes() + 4 }} minutes</strong>.
+    </p>
+  </section>
+
+  <section class="summary-card">
+    <h2>Order summary</h2>
+    <ul>
+      @for (line of cart.lines(); track line.key) {
+        <li>
+          <span
+            >{{ line.quantity }}× {{ line.name }}
+            @if (line.modifiers.length) {
+              <small>
+                (
+                @for (mod of line.modifiers; track mod.optionId; let last = $last) {
+                  {{ mod.label }}@if (!last) {, }
+                }
+                )
+              </small>
+            }
+          </span>
+          <span>{{ line.unitPrice * line.quantity | currency }}</span>
+        </li>
+      }
+    </ul>
+    <div class="total">
+      <span>Total</span>
+      <strong>{{ cart.subtotal() | currency }}</strong>
+    </div>
+  </section>
+
+  <section class="customer-block">
+    <h2>Your details</h2>
+    <p class="hint">So the kitchen can reach you if needed.</p>
+
+    <label for="customer-name">Name</label>
+    <ion-input
+      id="customer-name"
+      type="text"
+      autocomplete="name"
+      placeholder="Your name"
+      [value]="customerName()"
+      (ionInput)="onNameChange($event.detail.value)"
+    ></ion-input>
+    @if (nameInvalid()) {
+      <p class="field-error">Please enter your name.</p>
+    }
+
+    <label for="customer-phone">Phone</label>
+    <ion-input
+      id="customer-phone"
+      type="tel"
+      autocomplete="tel"
+      inputmode="tel"
+      placeholder="Mobile number"
+      [value]="customerPhone()"
+      (ionInput)="onPhoneChange($event.detail.value)"
+    ></ion-input>
+    @if (phoneInvalid()) {
+      <p class="field-error">Enter a valid phone number (8–15 digits).</p>
+    }
+
+    <label for="customer-email">Email <span class="optional">(optional)</span></label>
+    <ion-input
+      id="customer-email"
+      type="email"
+      autocomplete="email"
+      placeholder="you@example.com"
+      [value]="customerEmail()"
+      (ionInput)="onEmailChange($event.detail.value)"
+    ></ion-input>
+  </section>
+
+  <section class="note-block">
+    <label for="kitchen-note">Note to kitchen (optional)</label>
+    <ion-textarea
+      id="kitchen-note"
+      [value]="note"
+      (ionInput)="onNoteChange($event.detail.value)"
+      placeholder="Allergies, no onions, sauce on the side…"
+      rows="3"
+      autoGrow="true"
+    ></ion-textarea>
+  </section>
+
+  <div class="spacer"></div>
+</ion-content>
+
+<div class="footer-cta">
+  <ion-button
+    expand="block"
+    class="primary-btn"
+    [disabled]="placing || cart.lines().length === 0"
+    (click)="placeOrder()"
+  >
+    Place order
+  </ion-button>
+</div>

@@ -1,0 +1,263 @@
+:host {
+  display: block;
+  height: 100%;
+}
+
+.sheet {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: var(--plate-surface);
+  color: var(--plate-ink);
+}
+
+.sheet-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-shrink: 0;
+  padding: 8px 8px 8px 20px;
+}
+
+.sheet-header h2 {
+  margin: 0;
+  font-family: var(--plate-font-display);
+  font-size: 1.25rem;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.close-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  background: var(--plate-muted);
+  color: var(--plate-ink);
+  cursor: pointer;
+}
+
+.close-btn ion-icon {
+  font-size: 1.35rem;
+}
+
+.sheet-scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.hero {
+  margin: 0 16px;
+  border-radius: 18px;
+  overflow: hidden;
+  aspect-ratio: 16 / 10;
+  background: var(--plate-muted);
+}
+
+.hero img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.body {
+  padding: 18px 20px calc(24px + env(safe-area-inset-bottom));
+}
+
+.desc {
+  margin: 0 0 16px;
+  color: var(--plate-muted-ink);
+  line-height: 1.45;
+  font-size: 0.95rem;
+}
+
+.base-price {
+  margin: 0 0 8px;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--plate-ink);
+}
+
+.about {
+  margin: 0 0 22px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: var(--plate-muted);
+}
+
+.about h3 {
+  margin: 0 0 8px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--plate-accent-deep);
+}
+
+.about p {
+  margin: 0;
+  color: var(--plate-ink);
+  line-height: 1.5;
+  font-size: 0.92rem;
+}
+
+.about .prep {
+  margin-top: 10px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--plate-muted-ink);
+}
+
+.mod-group {
+  margin-bottom: 20px;
+}
+
+.mod-group__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.mod-group__head h3 {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.mod-group__req {
+  font-size: 0.75rem;
+  color: var(--plate-accent-deep);
+  font-weight: 600;
+}
+
+.mod-group__hint {
+  font-size: 0.75rem;
+  color: var(--plate-muted-ink);
+  font-weight: 600;
+}
+
+.mod-options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.mod-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1.5px solid var(--plate-line);
+  background: transparent;
+  color: var(--plate-ink);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.mod-option--active {
+  border-color: var(--plate-accent);
+  background: color-mix(in srgb, var(--plate-accent) 16%, transparent);
+}
+
+.mod-option__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.mod-check {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  border-radius: 5px;
+  border: 1.5px solid var(--plate-line);
+  background: transparent;
+}
+
+.mod-check--on {
+  border-color: var(--plate-accent-deep);
+  background: var(--plate-accent);
+  box-shadow: inset 0 0 0 2px var(--plate-surface);
+}
+
+.mod-option__price {
+  font-size: 0.85rem;
+  color: var(--plate-muted-ink);
+}
+
+.qty-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 8px;
+}
+
+.qty-label {
+  font-weight: 600;
+}
+
+.qty-stepper {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: var(--plate-muted);
+}
+
+.qty-stepper button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 50%;
+  background: var(--plate-surface);
+  color: var(--plate-ink);
+  cursor: pointer;
+}
+
+.qty-stepper span {
+  min-width: 1.25rem;
+  text-align: center;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.add-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 52px;
+  margin: 16px 0 0;
+  border: none;
+  border-radius: 14px;
+  background: var(--plate-accent);
+  color: var(--plate-ink);
+  font: inherit;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.add-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.add-btn:not(:disabled):active {
+  background: var(--plate-accent-deep);
+}

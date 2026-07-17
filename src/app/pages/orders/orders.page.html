@@ -1,0 +1,46 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-title>Your orders</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="orders-content">
+  @if (orderService.ordersList().length === 0) {
+    <div class="empty">
+      <h2>No orders yet</h2>
+      <p>When you place an order, you can track it here.</p>
+      <ion-button [routerLink]="menuLink()" class="primary-btn">
+        Browse menu
+      </ion-button>
+    </div>
+  } @else {
+    <ul class="order-list">
+      @for (order of orderService.ordersList(); track order.id) {
+        <li>
+          <a class="order-card" [routerLink]="statusLink(order.id)">
+            <div class="order-card__top">
+              <span class="code">{{ order.shortCode }}</span>
+              <span
+                class="status"
+                [attr.data-status]="order.status"
+              >
+                {{ statusLabel(order.status) }}
+              </span>
+            </div>
+            <p class="meta">
+              {{ order.lines.length }} items ·
+              {{ order.subtotal | currency }}
+            </p>
+            <p class="eta">
+              @if (order.status === 'ready') {
+                Ready · on the way to your table
+              } @else {
+                Est. {{ order.readyAt | date: 'h:mm a' }}
+              }
+            </p>
+          </a>
+        </li>
+      }
+    </ul>
+  }
+</ion-content>

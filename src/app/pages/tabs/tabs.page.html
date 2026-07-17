@@ -1,0 +1,27 @@
+<ion-tabs>
+  <ion-tab-bar slot="bottom" class="plate-tab-bar">
+    <ion-tab-button tab="menu" href="/o/{{ restaurantSlug }}/{{ tableId }}/tabs/menu">
+      <ion-icon name="restaurant-outline"></ion-icon>
+      <ion-label>Menu</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="cart" href="/o/{{ restaurantSlug }}/{{ tableId }}/tabs/cart">
+      <ion-icon name="bag-handle-outline"></ion-icon>
+      <ion-label>Cart</ion-label>
+      @if (cart.itemCount() > 0) {
+        <ion-badge>{{ cart.itemCount() }}</ion-badge>
+      }
+    </ion-tab-button>
+
+    <ion-tab-button
+      tab="orders"
+      href="/o/{{ restaurantSlug }}/{{ tableId }}/tabs/orders"
+    >
+      <ion-icon name="receipt-outline"></ion-icon>
+      <ion-label>Orders</ion-label>
+      @if (orders.activeCount() > 0) {
+        <ion-badge>{{ orders.activeCount() }}</ion-badge>
+      }
+    </ion-tab-button>
+  </ion-tab-bar>
+</ion-tabs>

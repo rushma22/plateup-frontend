@@ -1,0 +1,13 @@
+<button
+  type="button"
+  class="cart-bar"
+  (click)="viewCart.emit()"
+  [attr.aria-label]="'View cart, ' + itemCount() + ' items'"
+>
+  <span class="cart-bar__left">
+    <ion-icon name="bag-handle-outline" aria-hidden="true"></ion-icon>
+    <span class="cart-bar__count">{{ itemCount() }}</span>
+    <span class="cart-bar__label">View cart</span>
+  </span>
+  <span class="cart-bar__total">{{ subtotal() | currency }}</span>
+</button>

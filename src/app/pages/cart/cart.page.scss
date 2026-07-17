@@ -1,0 +1,155 @@
+ion-toolbar {
+  --background: transparent;
+  --color: var(--plate-ink);
+}
+
+.cart-content {
+  --background: transparent;
+}
+
+.empty {
+  padding: 64px 28px;
+  text-align: center;
+}
+
+.empty h2 {
+  margin: 0 0 8px;
+  font-family: var(--plate-font-display);
+  font-size: 1.6rem;
+  color: var(--plate-ink);
+}
+
+.empty p {
+  margin: 0 0 24px;
+  color: var(--plate-muted-ink);
+}
+
+.line-list {
+  list-style: none;
+  margin: 0;
+  padding: 8px 16px 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.line {
+  display: grid;
+  grid-template-columns: 72px 1fr;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 16px;
+  background: color-mix(in srgb, var(--plate-surface) 90%, transparent);
+  border: 1px solid color-mix(in srgb, var(--plate-line) 65%, transparent);
+}
+
+.line img {
+  width: 72px;
+  height: 72px;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+.line__body {
+  min-width: 0;
+}
+
+.line__top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.line__top h3 {
+  margin: 0;
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: var(--plate-ink);
+}
+
+.icon-btn {
+  border: none;
+  background: transparent;
+  color: var(--plate-muted-ink);
+  padding: 4px;
+  cursor: pointer;
+}
+
+.line__mods {
+  margin: 4px 0 0;
+  font-size: 0.78rem;
+  color: var(--plate-muted-ink);
+}
+
+.line__bottom {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.qty-stepper {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: var(--plate-muted);
+}
+
+.qty-stepper button {
+  width: 30px;
+  height: 30px;
+  border: none;
+  border-radius: 50%;
+  background: var(--plate-surface);
+  color: var(--plate-ink);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.qty-stepper span {
+  min-width: 1rem;
+  text-align: center;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.line__price {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.summary {
+  margin: 0 16px;
+  padding: 16px;
+  border-radius: 16px;
+  background: color-mix(in srgb, var(--plate-surface) 85%, transparent);
+}
+
+.summary__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.05rem;
+  color: var(--plate-ink);
+}
+
+.summary__eta {
+  margin: 8px 0 0;
+  font-size: 0.85rem;
+  color: var(--plate-muted-ink);
+}
+
+.footer-cta {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 12px 16px calc(68px + env(safe-area-inset-bottom));
+  background: linear-gradient(to top, var(--plate-bg) 65%, transparent);
+  z-index: 10;
+}

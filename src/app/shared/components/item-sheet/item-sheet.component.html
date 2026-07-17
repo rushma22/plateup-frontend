@@ -1,0 +1,102 @@
+@if (currentItem(); as item) {
+  <div class="sheet">
+    <header class="sheet-header">
+      <h2>{{ item.name }}</h2>
+      <button
+        type="button"
+        class="close-btn"
+        (click)="dismiss.emit()"
+        aria-label="Close"
+      >
+        <ion-icon name="close-outline"></ion-icon>
+      </button>
+    </header>
+
+    <div class="sheet-scroll">
+      <div class="hero">
+        <img [src]="item.imageUrl" [alt]="item.name" />
+      </div>
+
+      <div class="body">
+        <p class="base-price">{{ item.price | currency }}</p>
+        <p class="desc">{{ item.description }}</p>
+
+        <section class="about">
+          <h3>About this dish</h3>
+          <p>{{ item.details }}</p>
+          <p class="prep">Ready in about {{ item.prepMinutes }} min</p>
+        </section>
+
+        @for (group of item.modifiers ?? []; track group.id) {
+          <section class="mod-group">
+            <div class="mod-group__head">
+              <h3>{{ group.name }}</h3>
+              @if (group.required) {
+                <span class="mod-group__req">Required</span>
+              } @else if (group.multi) {
+                <span class="mod-group__hint">Optional · pick any</span>
+              }
+            </div>
+            <div class="mod-options">
+              @for (option of group.options; track option.id) {
+                <button
+                  type="button"
+                  class="mod-option"
+                  [class.mod-option--active]="isSelected(group.id, option.id)"
+                  [class.mod-option--multi]="group.multi"
+                  (click)="selectOption(group.id, option)"
+                >
+                  <span class="mod-option__label">
+                    @if (group.multi) {
+                      <span
+                        class="mod-check"
+                        [class.mod-check--on]="isSelected(group.id, option.id)"
+                        aria-hidden="true"
+                      ></span>
+                    }
+                    <span>{{ option.label }}</span>
+                  </span>
+                  @if (option.priceDelta > 0) {
+                    <span class="mod-option__price"
+                      >+{{ option.priceDelta | currency }}</span
+                    >
+                  }
+                </button>
+              }
+            </div>
+          </section>
+        }
+
+        <div class="qty-row">
+          <span class="qty-label">Quantity</span>
+          <div class="qty-stepper">
+            <button
+              type="button"
+              (click)="bump(-1)"
+              aria-label="Decrease quantity"
+            >
+              <ion-icon name="remove-outline"></ion-icon>
+            </button>
+            <span>{{ quantity() }}</span>
+            <button
+              type="button"
+              (click)="bump(1)"
+              aria-label="Increase quantity"
+            >
+              <ion-icon name="add-outline"></ion-icon>
+            </button>
+          </div>
+        </div>
+
+        <button
+          type="button"
+          class="add-btn"
+          [disabled]="!canAdd()"
+          (click)="confirm()"
+        >
+          Add to cart · {{ lineTotal() | currency }}
+        </button>
+      </div>
+    </div>
+  </div>
+}

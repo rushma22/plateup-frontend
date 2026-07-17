@@ -1,0 +1,157 @@
+ion-toolbar {
+  --background: transparent;
+  --color: var(--plate-ink);
+}
+
+.status-content {
+  --background: transparent;
+}
+
+.status-hero {
+  padding: 16px 20px 8px;
+  animation: rise-in 420ms ease-out;
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--plate-accent-deep);
+}
+
+.status-hero h1 {
+  margin: 0 0 10px;
+  font-family: var(--plate-font-display);
+  font-size: 2rem;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  color: var(--plate-ink);
+}
+
+.order-code {
+  margin: 0;
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: var(--plate-muted);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  font-size: 0.85rem;
+  color: var(--plate-ink);
+}
+
+.guest {
+  margin: 10px 0 0;
+  font-size: 0.9rem;
+  color: var(--plate-muted-ink);
+}
+
+.eta-card {
+  margin: 20px 16px;
+  padding: 22px 20px;
+  border-radius: 22px;
+  background:
+    radial-gradient(
+      120% 100% at 0% 0%,
+      color-mix(in srgb, var(--plate-accent) 35%, transparent),
+      transparent 55%
+    ),
+    var(--plate-ink);
+  color: var(--plate-cream);
+  animation: rise-in 520ms ease-out;
+}
+
+.eta-label {
+  margin: 0 0 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+.eta-value {
+  margin: 0;
+  font-family: var(--plate-font-display);
+  font-size: 2.1rem;
+  letter-spacing: -0.02em;
+}
+
+.eta-sub {
+  margin: 8px 0 0;
+  opacity: 0.85;
+  font-size: 0.92rem;
+}
+
+.steps-wrap {
+  margin: 8px 16px 20px;
+  padding: 20px 12px;
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--plate-surface) 90%, transparent);
+  border: 1px solid color-mix(in srgb, var(--plate-line) 65%, transparent);
+}
+
+.note,
+.items {
+  margin: 0 16px 16px;
+  padding: 16px;
+  border-radius: 16px;
+  background: color-mix(in srgb, var(--plate-surface) 85%, transparent);
+}
+
+.note h2,
+.items h2 {
+  margin: 0 0 8px;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--plate-muted-ink);
+}
+
+.note p,
+.items li {
+  margin: 0;
+  color: var(--plate-ink);
+  line-height: 1.45;
+}
+
+.items ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.actions {
+  padding: 8px 16px 40px;
+}
+
+.missing {
+  padding: 64px 28px;
+  text-align: center;
+}
+
+.missing h1 {
+  font-family: var(--plate-font-display);
+  margin: 0 0 8px;
+}
+
+.missing p {
+  color: var(--plate-muted-ink);
+  margin: 0 0 20px;
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

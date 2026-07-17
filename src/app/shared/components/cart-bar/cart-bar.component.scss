@@ -1,0 +1,75 @@
+:host {
+  display: block;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 20;
+  padding: 0 16px calc(72px + env(safe-area-inset-bottom));
+  pointer-events: none;
+  animation: cart-bar-in 280ms ease-out;
+}
+
+.cart-bar {
+  pointer-events: auto;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 18px;
+  border: none;
+  border-radius: 16px;
+  background: var(--plate-ink);
+  color: var(--plate-cream);
+  box-shadow: 0 12px 32px rgba(28, 24, 20, 0.35);
+  font: inherit;
+  cursor: pointer;
+}
+
+.cart-bar__left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.cart-bar__left ion-icon {
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
+.cart-bar__count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.5rem;
+  height: 1.5rem;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: var(--plate-accent);
+  color: var(--plate-ink);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.cart-bar__label {
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.cart-bar__total {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+@keyframes cart-bar-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

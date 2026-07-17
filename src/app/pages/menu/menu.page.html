@@ -1,0 +1,88 @@
+<ion-header class="ion-no-border menu-header">
+  <ion-toolbar>
+    <div class="brand-block" slot="start">
+      <p class="brand-name">{{ restaurant?.name ?? 'PlateUp' }}</p>
+      <p class="table-chip">Table {{ tableId }}</p>
+    </div>
+    <ion-title></ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="menu-content">
+  <div class="menu-intro">
+    <p class="tagline">{{ restaurant?.tagline ?? 'Browse and order from your table' }}</p>
+  </div>
+
+  <div class="category-rail" role="tablist" aria-label="Menu categories">
+    @for (category of categories; track category.id) {
+      <button
+        type="button"
+        role="tab"
+        class="category-chip"
+        [class.category-chip--active]="activeCategory() === category.id"
+        [attr.aria-selected]="activeCategory() === category.id"
+        (click)="selectCategory(category.id)"
+      >
+        {{ category.name }}
+      </button>
+    }
+  </div>
+
+  <div
+    class="item-list"
+    [class.item-list--cart-open]="cart.itemCount() > 0"
+  >
+    @for (item of visibleItems(); track item.id) {
+      <article class="menu-item" (click)="openItem(item)">
+        <div class="menu-item__copy">
+          <h2>{{ item.name }}</h2>
+          <p>{{ item.description }}</p>
+          <span class="menu-item__price">{{ item.price | currency }}</span>
+        </div>
+        <div class="menu-item__media">
+          <img [src]="item.imageUrl" [alt]="item.name" loading="lazy" />
+          @if (cart.quantityForItem(item.id); as qty) {
+            <span class="menu-item__qty" aria-label="{{ qty }} in cart">{{
+              qty
+            }}</span>
+          }
+          <button
+            type="button"
+            class="menu-item__add"
+            (click)="quickAdd($event, item)"
+            aria-label="Add {{ item.name }}"
+          >
+            <ion-icon name="add-outline"></ion-icon>
+          </button>
+        </div>
+      </article>
+    }
+  </div>
+</ion-content>
+
+@if (cart.itemCount() > 0) {
+  <app-cart-bar
+    [itemCount]="cart.itemCount()"
+    [subtotal]="cart.subtotal()"
+    (viewCart)="goToCart()"
+  />
+}
+
+<ion-modal
+  [isOpen]="selectedItem() !== null"
+  [breakpoints]="[0, 0.85, 1]"
+  [initialBreakpoint]="0.85"
+  [handle]="true"
+  (didDismiss)="closeItem()"
+  class="item-sheet-modal"
+>
+  <ng-template>
+    @if (selectedItem(); as item) {
+      <app-item-sheet
+        [item]="item"
+        (dismiss)="closeItem()"
+        (add)="onAdd($event)"
+      />
+    }
+  </ng-template>
+</ion-modal>

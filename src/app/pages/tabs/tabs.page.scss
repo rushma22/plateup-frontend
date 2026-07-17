@@ -1,0 +1,28 @@
+.plate-tab-bar {
+  --background: color-mix(in srgb, var(--plate-surface) 92%, transparent);
+  --border: 1px solid var(--plate-line);
+  --color: var(--plate-muted-ink);
+  --color-selected: var(--plate-ink);
+  padding-bottom: env(safe-area-inset-bottom);
+  box-shadow: 0 -8px 24px rgba(28, 24, 20, 0.06);
+}
+
+ion-tab-button {
+  font-weight: 600;
+}
+
+ion-tab-button.tab-selected {
+  --color: var(--plate-ink);
+}
+
+ion-badge {
+  --background: var(--plate-accent);
+  --color: var(--plate-ink);
+  font-weight: 700;
+  font-size: 0.7rem;
+  padding: 2px 6px;
+  position: absolute;
+  top: 6px;
+  right: calc(50% - 28px);
+  min-width: 1.15rem;
+}

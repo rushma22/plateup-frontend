@@ -1,0 +1,17 @@
+<ol class="steps" aria-label="Order progress">
+  @for (step of steps; track step.id; let i = $index) {
+    <li class="step" [attr.data-state]="stepState(step.id)">
+      <span class="step__dot" aria-hidden="true">
+        @if (stepState(step.id) === 'done') {
+          ✓
+        } @else {
+          {{ i + 1 }}
+        }
+      </span>
+      <span class="step__label">{{ step.label }}</span>
+      @if (i < steps.length - 1) {
+        <span class="step__rail" aria-hidden="true"></span>
+      }
+    </li>
+  }
+</ol>

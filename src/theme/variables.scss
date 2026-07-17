@@ -1,2 +1,29 @@
-// For information on how to create your own theme, please refer to:
-// https://ionicframework.com/docs/theming/
+:root {
+  /* PlateUp — warm charcoal + saffron */
+  --plate-ink: #1c1814;
+  --plate-cream: #f7f1e8;
+  --plate-bg: #f3ebe0;
+  --plate-surface: #fffaf4;
+  --plate-muted: #ebe2d5;
+  --plate-muted-ink: #6d645a;
+  --plate-line: #ddd2c3;
+  --plate-accent: #e8a317;
+  --plate-accent-deep: #b8740f;
+
+  --plate-font-display: 'Fraunces', Georgia, serif;
+  --plate-font-body: 'DM Sans', system-ui, sans-serif;
+
+  --ion-font-family: var(--plate-font-body);
+  --ion-background-color: var(--plate-bg);
+  --ion-text-color: var(--plate-ink);
+  --ion-toolbar-background: transparent;
+  --ion-toolbar-color: var(--plate-ink);
+  --ion-item-background: transparent;
+
+  --ion-color-primary: #e8a317;
+  --ion-color-primary-rgb: 232, 163, 23;
+  --ion-color-primary-contrast: #1c1814;
+  --ion-color-primary-contrast-rgb: 28, 24, 20;
+  --ion-color-primary-shade: #cc8f14;
+  --ion-color-primary-tint: #eaac2e;
+}

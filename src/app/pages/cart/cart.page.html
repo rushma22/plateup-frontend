@@ -1,0 +1,85 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-title>Your cart</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="cart-content">
+  @if (cart.lines().length === 0) {
+    <div class="empty">
+      <h2>Cart is empty</h2>
+      <p>Browse the menu and add something you like.</p>
+      <ion-button [routerLink]="menuLink()" class="primary-btn">
+        Browse menu
+      </ion-button>
+    </div>
+  } @else {
+    <ul class="line-list">
+      @for (line of cart.lines(); track line.key) {
+        <li class="line">
+          <img [src]="line.imageUrl" [alt]="line.name" />
+          <div class="line__body">
+            <div class="line__top">
+              <h3>{{ line.name }}</h3>
+              <button
+                type="button"
+                class="icon-btn"
+                (click)="remove(line.key)"
+                aria-label="Remove {{ line.name }}"
+              >
+                <ion-icon name="trash-outline"></ion-icon>
+              </button>
+            </div>
+            @if (line.modifiers.length) {
+              <p class="line__mods">
+                @for (mod of line.modifiers; track mod.optionId; let last = $last) {
+                  {{ mod.label }}@if (!last) { · }
+                }
+              </p>
+            }
+            <div class="line__bottom">
+              <div class="qty-stepper">
+                <button
+                  type="button"
+                  (click)="bump(line.key, -1)"
+                  aria-label="Decrease"
+                >
+                  <ion-icon name="remove-outline"></ion-icon>
+                </button>
+                <span>{{ line.quantity }}</span>
+                <button
+                  type="button"
+                  (click)="bump(line.key, 1)"
+                  aria-label="Increase"
+                >
+                  <ion-icon name="add-outline"></ion-icon>
+                </button>
+              </div>
+              <span class="line__price">
+                {{ line.unitPrice * line.quantity | currency }}
+              </span>
+            </div>
+          </div>
+        </li>
+      }
+    </ul>
+
+    <div class="summary">
+      <div class="summary__row">
+        <span>Subtotal</span>
+        <strong>{{ cart.subtotal() | currency }}</strong>
+      </div>
+      <p class="summary__eta">
+        Estimated prep · about {{ cart.estimatedPrepMinutes() }} min
+      </p>
+    </div>
+  }
+</ion-content>
+
+@if (cart.lines().length > 0) {
+  <div class="footer-cta">
+    <ion-button expand="block" class="primary-btn" (click)="goConfirm()">
+      Continue · {{ cart.subtotal() | currency }}
+    </ion-button>
+  </div>
+}

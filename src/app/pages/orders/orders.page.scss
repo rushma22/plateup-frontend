@@ -1,0 +1,94 @@
+ion-toolbar {
+  --background: transparent;
+  --color: var(--plate-ink);
+}
+
+.orders-content {
+  --background: transparent;
+}
+
+.empty {
+  padding: 64px 28px;
+  text-align: center;
+}
+
+.empty h2 {
+  margin: 0 0 8px;
+  font-family: var(--plate-font-display);
+  font-size: 1.6rem;
+  color: var(--plate-ink);
+}
+
+.empty p {
+  margin: 0 0 24px;
+  color: var(--plate-muted-ink);
+}
+
+.order-list {
+  list-style: none;
+  margin: 0;
+  padding: 8px 16px 88px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.order-card {
+  display: block;
+  padding: 16px;
+  border-radius: 16px;
+  text-decoration: none;
+  background: color-mix(in srgb, var(--plate-surface) 90%, transparent);
+  border: 1px solid color-mix(in srgb, var(--plate-line) 70%, transparent);
+  color: var(--plate-ink);
+  transition: transform 160ms ease;
+}
+
+.order-card:active {
+  transform: scale(0.985);
+}
+
+.order-card__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.code {
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  font-size: 1.05rem;
+}
+
+.status {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--plate-muted);
+  color: var(--plate-ink);
+}
+
+.status[data-status='preparing'] {
+  background: color-mix(in srgb, var(--plate-accent) 35%, transparent);
+}
+
+.status[data-status='ready'] {
+  background: color-mix(in srgb, #3d8b5a 25%, transparent);
+  color: #1f5c38;
+}
+
+.meta {
+  margin: 0 0 4px;
+  font-size: 0.9rem;
+  color: var(--plate-muted-ink);
+}
+
+.eta {
+  margin: 0;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--plate-accent-deep);
+}

@@ -1,0 +1,29 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-title>PlateUp</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="entry-content">
+  <section class="entry-hero">
+    <p class="eyebrow">Dev · QR simulator</p>
+    <h1>{{ restaurant.name }}</h1>
+    <p class="lede">
+      Pick a table to open the guest ordering flow as if you scanned a QR code.
+    </p>
+  </section>
+
+  <ul class="table-list">
+    @for (table of restaurant.tables; track table) {
+      <li>
+        <a
+          class="table-link"
+          [routerLink]="['/o', restaurant.slug, table]"
+        >
+          <span class="table-link__label">Table {{ table }}</span>
+          <span class="table-link__hint">Open menu</span>
+        </a>
+      </li>
+    }
+  </ul>
+</ion-content>

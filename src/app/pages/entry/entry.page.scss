@@ -1,0 +1,73 @@
+ion-toolbar {
+  --background: transparent;
+  --color: var(--plate-ink);
+}
+
+.entry-content {
+  --background: transparent;
+}
+
+.entry-hero {
+  padding: 24px 20px 12px;
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--plate-accent-deep);
+}
+
+.entry-hero h1 {
+  margin: 0 0 10px;
+  font-family: var(--plate-font-display);
+  font-size: 2.4rem;
+  letter-spacing: -0.03em;
+  color: var(--plate-ink);
+}
+
+.lede {
+  margin: 0;
+  color: var(--plate-muted-ink);
+  line-height: 1.45;
+  max-width: 22rem;
+}
+
+.table-list {
+  list-style: none;
+  margin: 20px 16px 40px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.table-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 18px;
+  border-radius: 16px;
+  text-decoration: none;
+  background: color-mix(in srgb, var(--plate-surface) 90%, transparent);
+  border: 1px solid color-mix(in srgb, var(--plate-line) 70%, transparent);
+  color: var(--plate-ink);
+  transition: transform 160ms ease, border-color 160ms ease;
+}
+
+.table-link:active {
+  transform: scale(0.985);
+}
+
+.table-link__label {
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+.table-link__hint {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--plate-accent-deep);
+}
