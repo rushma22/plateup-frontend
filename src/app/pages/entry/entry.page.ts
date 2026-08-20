@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
 import {
   IonContent,
@@ -6,7 +7,8 @@ import {
   IonTitle,
   IonToolbar,
 } from '@ionic/angular/standalone';
-import { MOCK_RESTAURANT } from '../../core/mocks/menu.mock';
+import { DEFAULT_RESTAURANT_SLUG } from '../../core/constants';
+import { RestaurantApiService } from '../../core/services/restaurant-api.service';
 
 @Component({
   selector: 'app-entry',
@@ -15,5 +17,10 @@ import { MOCK_RESTAURANT } from '../../core/mocks/menu.mock';
   imports: [RouterLink, IonHeader, IonToolbar, IonTitle, IonContent],
 })
 export class EntryPage {
-  readonly restaurant = MOCK_RESTAURANT;
+  private readonly restaurantApi = inject(RestaurantApiService);
+
+  /** Live restaurant + tables from GET /restaurants/demo-bistro. */
+  readonly restaurant = toSignal(
+    this.restaurantApi.getRestaurant(DEFAULT_RESTAURANT_SLUG)
+  );
 }

@@ -80,6 +80,16 @@ ion-toolbar {
   color: #1f5c38;
 }
 
+.status[data-status='completed'] {
+  background: color-mix(in srgb, #3d8b5a 18%, transparent);
+  color: #1f5c38;
+}
+
+.status[data-status='cancelled'] {
+  background: color-mix(in srgb, #b33a3a 18%, transparent);
+  color: #8a2222;
+}
+
 .meta {
   margin: 0 0 4px;
   font-size: 0.9rem;

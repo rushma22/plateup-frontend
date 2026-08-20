@@ -1,6 +1,6 @@
 import { CurrencyPipe, DatePipe } from '@angular/common';
-import { Component, inject } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { Component, OnInit, inject } from '@angular/core';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import {
   IonButton,
   IonContent,
@@ -8,9 +8,12 @@ import {
   IonTitle,
   IonToolbar,
 } from '@ionic/angular/standalone';
+import { DEFAULT_RESTAURANT_SLUG } from '../../core/constants';
 import { OrderStatus } from '../../core/models/order.models';
 import { OrderService } from '../../core/services/order.service';
-import { routeParam } from '../../core/utils/route-param';
+import { TableSessionService } from '../../core/services/table-session.service';
+import { guestRouteParams } from '../../core/utils/route-param';
+import { SessionClosingBannerComponent } from '../../shared/components/session-closing-banner/session-closing-banner.component';
 
 @Component({
   selector: 'app-orders',
@@ -25,23 +28,45 @@ import { routeParam } from '../../core/utils/route-param';
     IonTitle,
     IonContent,
     IonButton,
+    SessionClosingBannerComponent,
   ],
 })
-export class OrdersPage {
+export class OrdersPage implements OnInit {
   private readonly route = inject(ActivatedRoute);
+  private readonly router = inject(Router);
   readonly orderService = inject(OrderService);
+  readonly tableSession = inject(TableSessionService);
 
-  readonly restaurantSlug = routeParam(this.route, 'restaurantSlug', 'bistro-lane');
-  readonly tableId = routeParam(this.route, 'tableId', '1');
+  private guest() {
+    return guestRouteParams(this.router, this.route, DEFAULT_RESTAURANT_SLUG);
+  }
+
+  get restaurantSlug(): string {
+    return this.guest().restaurantSlug;
+  }
+
+  get tableId(): string {
+    return this.guest().tableId;
+  }
+
+  ngOnInit(): void {
+    // Make sure we have a session so order history can load for this visit.
+    this.tableSession
+      .ensureSession(this.restaurantSlug, this.tableId)
+      .subscribe();
+  }
 
   menuLink(): string[] {
-    return ['/o', this.restaurantSlug, this.tableId, 'tabs', 'menu'];
+    const { restaurantSlug, tableId } = this.guest();
+    return ['/o', restaurantSlug, tableId, 'tabs', 'menu'];
   }
 
   statusLink(orderId: string): string[] {
-    return ['/o', this.restaurantSlug, this.tableId, 'status', orderId];
+    const { restaurantSlug, tableId } = this.guest();
+    return ['/o', restaurantSlug, tableId, 'status', orderId];
   }
 
+  /** Short badge text for the orders list. */
   statusLabel(status: OrderStatus): string {
     if (status === 'received') {
       return 'Received';
@@ -49,6 +74,28 @@ export class OrdersPage {
     if (status === 'preparing') {
       return 'Preparing';
     }
-    return 'Ready';
+    if (status === 'ready') {
+      return 'Ready';
+    }
+    if (status === 'completed') {
+      return 'Done';
+    }
+    if (status === 'cancelled') {
+      return 'Cancelled';
+    }
+    return 'Received';
+  }
+
+  statusHint(status: OrderStatus): string {
+    if (status === 'ready') {
+      return 'Ready · on the way to your table';
+    }
+    if (status === 'completed') {
+      return 'Finished — enjoy your meal';
+    }
+    if (status === 'cancelled') {
+      return 'This order was cancelled';
+    }
+    return '';
   }
 }

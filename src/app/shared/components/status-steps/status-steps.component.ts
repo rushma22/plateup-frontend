@@ -2,7 +2,7 @@ import { Component, input } from '@angular/core';
 import { OrderStatus } from '../../../core/models/order.models';
 
 interface Step {
-  id: OrderStatus;
+  id: 'received' | 'preparing' | 'ready';
   label: string;
 }
 
@@ -17,19 +17,34 @@ export class StatusStepsComponent {
 
   readonly steps: Step[] = [
     { id: 'received', label: 'Received' },
-    { id: 'preparing', label: 'Preparing' },
+    { id: 'preparing', label: 'Cooking' },
     { id: 'ready', label: 'Ready' },
   ];
 
-  stepState(stepId: OrderStatus): 'done' | 'active' | 'todo' {
-    const order = ['received', 'preparing', 'ready'] as OrderStatus[];
-    const current = order.indexOf(this.status());
+  /**
+   * Map guest status onto the 3 kitchen steps.
+   * Completed = all steps done. Cancelled is handled outside this component.
+   */
+  stepState(stepId: Step['id']): 'done' | 'active' | 'todo' {
+    const order = ['received', 'preparing', 'ready'] as const;
+    const raw = this.status();
+    if (raw === 'cancelled') {
+      return 'todo';
+    }
+    const currentIndex =
+      raw === 'completed' ? order.length : order.indexOf(raw as Step['id']);
     const index = order.indexOf(stepId);
-    if (index < current) {
+    if (currentIndex < 0) {
+      return 'todo';
+    }
+    if (index < currentIndex) {
       return 'done';
     }
-    if (index === current) {
+    if (index === currentIndex && raw !== 'completed') {
       return 'active';
+    }
+    if (raw === 'completed') {
+      return 'done';
     }
     return 'todo';
   }

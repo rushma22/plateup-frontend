@@ -6,7 +6,11 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "start:android-emulator": "ng serve --configuration android-emulator --host 0.0.0.0",
+    "start:physical-device": "ng serve --configuration physical-device --host 0.0.0.0",
     "build": "ng build",
+    "build:android-emulator": "ng build --configuration android-emulator",
+    "build:physical-device": "ng build --configuration physical-device",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint"
@@ -29,6 +33,7 @@
     "@ionic/angular": "^8.0.0",
     "ionicons": "^7.0.0",
     "rxjs": "~7.8.0",
+    "socket.io-client": "^4.8.3",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"
   },

@@ -11,6 +11,8 @@
 </ion-header>
 
 <ion-content class="confirm-content">
+  <app-session-closing-banner />
+
   <section class="hero-meta">
     <p class="eyebrow">Table {{ tableId }}</p>
     <h1>Almost there</h1>
@@ -105,12 +107,25 @@
 </ion-content>
 
 <div class="footer-cta">
+  @if (placeError) {
+    <p class="field-error" style="margin: 0 0 10px; text-align: center">
+      {{ placeError }}
+    </p>
+  }
   <ion-button
     expand="block"
     class="primary-btn"
-    [disabled]="placing || cart.lines().length === 0"
+    [disabled]="placing || cart.lines().length === 0 || !tableSession.isReady() || tableSession.isClosed()"
     (click)="placeOrder()"
   >
-    Place order
+    @if (placing) {
+      Placing…
+    } @else if (!tableSession.isReady() && !tableSession.isClosed()) {
+      Loading table session…
+    } @else if (tableSession.isClosed()) {
+      Table cleared
+    } @else {
+      Place order
+    }
   </ion-button>
 </div>

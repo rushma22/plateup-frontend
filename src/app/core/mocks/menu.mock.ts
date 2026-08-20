@@ -1,10 +1,16 @@
 import { MenuCategory, MenuItem, Restaurant } from '../models/order.models';
 
 export const MOCK_RESTAURANT: Restaurant = {
-  slug: 'bistro-lane',
-  name: 'Bistro Lane',
+  slug: 'demo-bistro',
+  name: 'Demo Bistro',
   tagline: 'Seasonal plates, ready when you are',
-  tables: [1, 2, 3, 4, 5, 8, 12],
+  tables: [
+    { id: 'seed_table_t1', label: 'T1', capacity: 2 },
+    { id: 'seed_table_t2', label: 'T2', capacity: 4 },
+    { id: 'seed_table_t3', label: 'T3', capacity: 4 },
+    { id: 'seed_table_t4', label: 'T4', capacity: 6 },
+    { id: 'seed_table_t5', label: 'T5', capacity: 8 },
+  ],
 };
 
 export const MOCK_CATEGORIES: MenuCategory[] = [

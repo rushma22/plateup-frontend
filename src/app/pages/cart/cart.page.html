@@ -5,6 +5,8 @@
 </ion-header>
 
 <ion-content class="cart-content">
+  <app-session-closing-banner />
+
   @if (cart.lines().length === 0) {
     <div class="empty">
       <h2>Cart is empty</h2>

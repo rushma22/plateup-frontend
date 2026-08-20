@@ -5,10 +5,17 @@
 </ion-header>
 
 <ion-content class="orders-content">
-  @if (orderService.ordersList().length === 0) {
+  <app-session-closing-banner />
+
+  @if (tableSession.isClosed()) {
+    <div class="empty">
+      <h2>Table cleared</h2>
+      <p>Orders from this visit are no longer shown. Scan the QR code to start fresh.</p>
+    </div>
+  } @else if (orderService.ordersList().length === 0) {
     <div class="empty">
       <h2>No orders yet</h2>
-      <p>When you place an order, you can track it here.</p>
+      <p>When you place an order, you can track it here for this table visit.</p>
       <ion-button [routerLink]="menuLink()" class="primary-btn">
         Browse menu
       </ion-button>
@@ -32,8 +39,8 @@
               {{ order.subtotal | currency }}
             </p>
             <p class="eta">
-              @if (order.status === 'ready') {
-                Ready · on the way to your table
+              @if (statusHint(order.status); as hint) {
+                {{ hint }}
               } @else {
                 Est. {{ order.readyAt | date: 'h:mm a' }}
               }

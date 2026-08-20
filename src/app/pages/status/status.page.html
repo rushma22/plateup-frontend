@@ -8,16 +8,31 @@
 </ion-header>
 
 <ion-content class="status-content">
+  <app-session-closing-banner />
+
   @if (order(); as current) {
     <section class="status-hero">
       <p class="eyebrow">{{ current.restaurantName }} · Table {{ current.tableId }}</p>
       <h1>{{ statusMessage() }}</h1>
       <p class="order-code">Order {{ current.shortCode }}</p>
-      <p class="guest">For {{ current.customer.name }} · {{ current.customer.phone }}</p>
+      @if (current.customer.name) {
+        <p class="guest">
+          For {{ current.customer.name }}
+          @if (current.customer.phone) {
+            · {{ current.customer.phone }}
+          }
+        </p>
+      }
     </section>
 
     <section class="eta-card">
-      @if (current.status === 'ready') {
+      @if (current.status === 'cancelled') {
+        <p class="eta-label">Cancelled</p>
+        <p class="eta-value">Not being prepared</p>
+      } @else if (current.status === 'completed') {
+        <p class="eta-label">Finished</p>
+        <p class="eta-value">Enjoy your meal</p>
+      } @else if (current.status === 'ready') {
         <p class="eta-label">Ready now</p>
         <p class="eta-value">We’ll bring it to your table</p>
       } @else {
@@ -29,9 +44,11 @@
       }
     </section>
 
-    <section class="steps-wrap">
-      <app-status-steps [status]="current.status" />
-    </section>
+    @if (current.status !== 'cancelled') {
+      <section class="steps-wrap">
+        <app-status-steps [status]="current.status" />
+      </section>
+    }
 
     @if (current.note) {
       <section class="note">
@@ -41,28 +58,59 @@
     }
 
     <section class="items">
-      <h2>{{ current.lines.length }} items</h2>
+      <h2>Order details · {{ current.lines.length }} items</h2>
       <ul>
         @for (line of current.lines; track line.key) {
-          <li>{{ line.quantity }}× {{ line.name }}</li>
+          <li>
+            <span>
+              {{ line.quantity }}× {{ line.name }}
+              @if (line.modifiers.length) {
+                <small>
+                  @for (mod of line.modifiers; track mod.optionId; let last = $last) {
+                    {{ mod.label }}@if (!last) { · }
+                  }
+                </small>
+              }
+            </span>
+            <span class="line-price">
+              {{ line.unitPrice * line.quantity | currency }}
+            </span>
+          </li>
         }
       </ul>
+      <div class="total">
+        <span>Total</span>
+        <strong>{{ current.subtotal | currency }}</strong>
+      </div>
     </section>
 
     <div class="actions">
-      <ion-button
-        expand="block"
-        fill="outline"
-        class="ghost-btn"
-        [routerLink]="menuLink()"
-      >
-        Add more items
-      </ion-button>
+      @if (!tableSession.isClosed()) {
+        <ion-button
+          expand="block"
+          fill="outline"
+          class="ghost-btn"
+          [routerLink]="menuLink()"
+        >
+          Add more items
+        </ion-button>
+      }
+    </div>
+  } @else if (loading()) {
+    <div class="missing">
+      <h1>Loading order…</h1>
+      <p>Fetching your order from the kitchen.</p>
     </div>
   } @else {
     <div class="missing">
       <h1>Order not found</h1>
-      <p>This demo order may have been cleared. Head back to the menu.</p>
+      <p>
+        @if (loadError()) {
+          We couldn’t load this order. Head back to the menu.
+        } @else {
+          This order may have been cleared. Head back to the menu.
+        }
+      </p>
       <ion-button [routerLink]="menuLink()" class="primary-btn">
         Back to menu
       </ion-button>

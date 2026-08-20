@@ -11,8 +11,10 @@ import {
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { addOutline, removeOutline, trashOutline } from 'ionicons/icons';
+import { DEFAULT_RESTAURANT_SLUG } from '../../core/constants';
 import { CartService } from '../../core/services/cart.service';
-import { routeParam } from '../../core/utils/route-param';
+import { guestRouteParams } from '../../core/utils/route-param';
+import { SessionClosingBannerComponent } from '../../shared/components/session-closing-banner/session-closing-banner.component';
 
 addIcons({ addOutline, removeOutline, trashOutline });
 
@@ -29,6 +31,7 @@ addIcons({ addOutline, removeOutline, trashOutline });
     IonContent,
     IonButton,
     IonIcon,
+    SessionClosingBannerComponent,
   ],
 })
 export class CartPage {
@@ -36,8 +39,13 @@ export class CartPage {
   private readonly router = inject(Router);
   readonly cart = inject(CartService);
 
-  readonly restaurantSlug = routeParam(this.route, 'restaurantSlug', 'bistro-lane');
-  readonly tableId = routeParam(this.route, 'tableId', '1');
+  private readonly guest = guestRouteParams(
+    this.router,
+    this.route,
+    DEFAULT_RESTAURANT_SLUG
+  );
+  readonly restaurantSlug = this.guest.restaurantSlug;
+  readonly tableId = this.guest.tableId;
 
   bump(key: string, delta: number): void {
     const line = this.cart.lines().find((l) => l.key === key);
@@ -52,15 +60,20 @@ export class CartPage {
   }
 
   goConfirm(): void {
-    void this.router.navigate([
-      '/o',
-      this.restaurantSlug,
-      this.tableId,
-      'confirm',
-    ]);
+    const { restaurantSlug, tableId } = guestRouteParams(
+      this.router,
+      this.route,
+      DEFAULT_RESTAURANT_SLUG
+    );
+    void this.router.navigate(['/o', restaurantSlug, tableId, 'confirm']);
   }
 
   menuLink(): string[] {
-    return ['/o', this.restaurantSlug, this.tableId, 'tabs', 'menu'];
+    const { restaurantSlug, tableId } = guestRouteParams(
+      this.router,
+      this.route,
+      DEFAULT_RESTAURANT_SLUG
+    );
+    return ['/o', restaurantSlug, tableId, 'tabs', 'menu'];
   }
 }

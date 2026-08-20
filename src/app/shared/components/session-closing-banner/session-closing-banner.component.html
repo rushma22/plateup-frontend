@@ -1,0 +1,31 @@
+@if (tableSession.isClosing()) {
+  <aside class="session-banner" role="status" aria-live="polite">
+    <p class="session-banner__title">
+      Your orders are complete. This table will be cleared in 15 minutes.
+    </p>
+    <p class="session-banner__countdown">
+      Time left: <strong>{{ tableSession.countdownLabel() }}</strong>
+    </p>
+    @if (tableSession.reviewUrl(); as reviewUrl) {
+      <ion-button
+        class="session-banner__review"
+        expand="block"
+        fill="outline"
+        (click)="openReview()"
+      >
+        Review this restaurant
+      </ion-button>
+      <!-- reviewUrl kept for a11y / tests -->
+      <span class="sr-only">{{ reviewUrl }}</span>
+    }
+  </aside>
+}
+
+@if (tableSession.isClosed()) {
+  <aside class="session-banner session-banner--closed" role="status">
+    <p class="session-banner__title">This table has been cleared.</p>
+    <p class="session-banner__countdown">
+      Scan the QR code again when you are ready to order.
+    </p>
+  </aside>
+}

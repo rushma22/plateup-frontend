@@ -44,6 +44,16 @@
   max-width: 22rem;
 }
 
+.menu-error {
+  margin: 8px 20px;
+  padding: 14px;
+  border: 1px solid var(--plate-line);
+  border-radius: 12px;
+  background: var(--plate-surface);
+  color: var(--plate-ink);
+  line-height: 1.4;
+}
+
 .category-rail {
   display: flex;
   gap: 8px;

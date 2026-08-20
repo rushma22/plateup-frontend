@@ -67,6 +67,30 @@
               "sourceMap": true,
               "namedChunks": true
             },
+            "android-emulator": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.android-emulator.ts"
+                }
+              ]
+            },
+            "physical-device": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.physical-device.ts"
+                }
+              ]
+            },
             "ci": {
               "progress": false
             }
@@ -81,6 +105,12 @@
             },
             "development": {
               "buildTarget": "app:build:development"
+            },
+            "android-emulator": {
+              "buildTarget": "app:build:android-emulator"
+            },
+            "physical-device": {
+              "buildTarget": "app:build:physical-device"
             },
             "ci": {
               "progress": false
